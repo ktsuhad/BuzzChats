@@ -1,6 +1,6 @@
 const User = require("../Model/userModel");
 const { Cloud } = require("../config/cloudinary");
-const generateToken = require("../config/generateToken")
+const generateToken = require("../config/generateToken");
 
 // Register user
 const registerUser = async (req, res) => {
@@ -12,7 +12,8 @@ const registerUser = async (req, res) => {
     throw new Error("All fields are required");
   }
 
-  let imageUrl = "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"; // Default image URL
+  let imageUrl =
+    "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"; // Default image URL
 
   if (image) {
     const imageStream = await Cloud.uploader.upload(image.path, {
@@ -23,7 +24,7 @@ const registerUser = async (req, res) => {
   }
 
   // Find existing user
-  const existingUser = await User.findOne({ email }); 
+  const existingUser = await User.findOne({ email });
 
   // If exists
   if (existingUser) {
@@ -35,7 +36,7 @@ const registerUser = async (req, res) => {
     name,
     email,
     password,
-    image:imageUrl,
+    image: imageUrl,
   });
 
   if (newUser) {
@@ -78,4 +79,19 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser };
+// /api/user?search=suhad
+const allUsers = async (req, res) => {
+  const keyword = req.query.search
+    ? {
+        $or: [
+          { name: { $regex: req.query.search, $options: "i" } },
+          { email: { $regex: req.query.search, $options: "i" } },
+        ],
+      }
+    : {};
+
+  const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+  res.send(users)
+};
+
+module.exports = { registerUser, loginUser, allUsers };
