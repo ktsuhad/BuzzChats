@@ -5,8 +5,10 @@ const morgan = require("morgan");
 const connectDB = require("./config/db");
 const colors = require("colors");
 
-const userRoutes = require("./routes/userRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
+
+const userRoutes = require("./routes/userRoutes");
+const chatRoutes = require("./routes/chatRoutes");
 
 dotenv.config(); //dotenv config
 connectDB(); //connecting mongodb
@@ -19,9 +21,10 @@ app.use(cors());
 app.use(morgan("tiny"));
 
 app.use("/api/user", userRoutes);
+app.use("/api/chat",chatRoutes); //chat route
 
-app.use(notFound);
-app.use(errorHandler);
+app.use(notFound); //not found middlware
+app.use(errorHandler); //error handling middlware
 
 // Start the server
 app.listen(PORT, () => {
