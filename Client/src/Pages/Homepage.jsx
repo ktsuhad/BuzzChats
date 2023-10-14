@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Signup from "../Components/Authentication/Signup";
 import Login from "../Components/Authentication/Login";
 import { Box, Tabs, Tab } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
   const [value, setValue] = useState(0);
+  const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -14,6 +16,12 @@ const Homepage = () => {
   const switchToLogin = () => {
     setValue(1);
   };
+
+  useEffect(() => {
+    const User = JSON.parse(localStorage.getItem("userInfo"));
+
+    if (User) navigate("/chats"); //if user then goto the chats page
+  }, [navigate]);
 
   return (
     <div>
