@@ -9,6 +9,8 @@ const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
+const messageRoutes = require("./routes/messageRoutes");
+
 
 dotenv.config(); //dotenv config
 connectDB(); //connecting mongodb
@@ -20,8 +22,10 @@ app.use(express.json()); //to accept JSON Data
 app.use(cors());
 app.use(morgan("tiny"));
 
-app.use("/api/user", userRoutes);
+app.use("/api/user", userRoutes); //user route
 app.use("/api/chat",chatRoutes); //chat route
+app.use("/api/message",messageRoutes); //message route
+
 
 app.use(notFound); //not found middlware
 app.use(errorHandler); //error handling middlware
