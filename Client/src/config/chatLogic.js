@@ -1,4 +1,4 @@
-import dayjs from "dayjs";  //importing dayjs libery
+import dayjs from "dayjs"; //importing dayjs libery
 
 //sender info
 export const getSender = (loggedUser, users) => {
@@ -20,3 +20,13 @@ export const formatTimestamp = (createdAt) => {
     return createdAtDate.format("MM/DD/YYYY"); // Before this week, display date (e.g., 05/05/2023)
   }
 };
+
+
+export const isSameUser = (messages, message, i, userId) => {
+  return (
+    (i < messages.length - 1 &&
+      messages[i + 1].sender._id !== message.sender._id) ||
+    (messages[i + 1].sender._id === undefined && messages[i].sender._id !== userId)
+  );
+};
+

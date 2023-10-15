@@ -4,7 +4,6 @@ import { Avatar, Badge } from "@mui/material";
 
 const ChatListItem = ({ chat, onclick, selectedChat, loggedUser }) => {
   const sender = getSender(loggedUser, chat.users);
-
   return (
     <div
       onClick={onclick}
@@ -14,7 +13,7 @@ const ChatListItem = ({ chat, onclick, selectedChat, loggedUser }) => {
     >
       <div className="flex items-center">
         <Avatar 
-          src={!chat.isGroupChat ? sender.image : chat.groupAdmin.image}
+          src={!chat.isGroupChat ? sender.image : ""}
           alt={"userImage"}
           className="w-10 h-10 rounded-full object-cover"
         />

@@ -27,12 +27,13 @@ const Login = () => {
       const response = await userApi.login(formData);
 
       if (response) {
-        toast.success("login successfully")
+        toast.success("login successfully");
+        localStorage.setItem("userInfo", JSON.stringify(response)); //added into local storage
         navigate("/chats");
       }
     } catch (error) {
       console.error(error);
-      toast.error(error.message)
+      toast.error(error.message);
     }
   };
 

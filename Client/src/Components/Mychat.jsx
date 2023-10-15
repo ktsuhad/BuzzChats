@@ -18,7 +18,6 @@ const Mychat = () => {
         try {
           const data = await chatApi.fetchChats(User.token);
           setChats(data);
-          console.log(data);
         } catch (error) {
           toast.error(error.message);
           console.log(error);
@@ -45,7 +44,7 @@ const Mychat = () => {
         />
         <Search /> {/* search icon */}
       </div>
-      <div>
+      <div className="overflow-y-scroll">
         {Chats
           ? Chats.map((chat) => (
               <ChatListItem
