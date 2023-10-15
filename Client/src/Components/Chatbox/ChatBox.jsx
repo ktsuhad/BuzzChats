@@ -14,6 +14,11 @@ import MessageList from "./MessageList";
 import MessageInput from "./MessageInput";
 import ChatuserBox from "./ChatUserBox";
 
+import io from "socket.io-client"; //socket io client
+
+const ENDPOINT = "http://localhost:5000/";
+var socket, selectedChatCompare;
+
 const ChatBox = () => {
   const { User, selectedChat } = ChatState(); //context state
   const [Messages, setMessages] = useState([]);
@@ -42,6 +47,10 @@ const ChatBox = () => {
   useEffect(() => {
     fetchMessages();
   }, [selectedChat]);
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+  }, []);
 
   //message sending function
   const sendMessage = async () => {
