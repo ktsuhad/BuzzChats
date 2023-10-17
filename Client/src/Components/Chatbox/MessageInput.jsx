@@ -2,7 +2,7 @@ import { ImageOutlined, SendOutlined } from "@mui/icons-material";
 import { IconButton, Input } from "@mui/material";
 import React from "react";
 
-const MessageInput = ({ sendMessage, setNewMessage, newMessage }) => {
+const MessageInput = ({ sendMessage, newMessage ,onchange}) => {
   return (
     <div className="flex mt-4">
       <form
@@ -17,7 +17,7 @@ const MessageInput = ({ sendMessage, setNewMessage, newMessage }) => {
           placeholder="Type a message"
           className="w-full outline-none bg-transparent"
           value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
+          onChange={onchange}
         />
         <div className="flex items-center gap-5">
           <IconButton onClick={sendMessage}>
