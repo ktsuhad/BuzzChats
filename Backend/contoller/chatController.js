@@ -18,7 +18,7 @@ const accessChat = async (req, res) => {
       { users: { $elemMatch: { $eq: userId } } },
     ],
   })
-    .populate("users", "-password")
+    .populate("users", "-password") // Exclude the password field
     .populate("latestMessage");
 
   isChat = await User.populate(isChat, {
@@ -53,7 +53,7 @@ const accessChat = async (req, res) => {
 const fetchChats = async (req, res) => {
   try {
     Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
-      .populate("users", "-password")
+      .populate("users", "-password") // Exclude the password field
       .populate("groupAdmin", "-password")
       .populate("latestMessage")
       .sort({ updatedAt: -1 })
@@ -180,4 +180,11 @@ const removeFromGroup = async (req, res) => {
   }
 };
 
-module.exports = {accessChat,fetchChats,createGroupChat,renameGroup,addToGroup,removeFromGroup};
+module.exports = {
+  accessChat,
+  fetchChats,
+  createGroupChat,
+  renameGroup,
+  addToGroup,
+  removeFromGroup,
+};

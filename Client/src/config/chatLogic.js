@@ -5,6 +5,7 @@ export const getSender = (loggedUser, users) => {
   return loggedUser._id === users[0]._id ? users[1] : users[0];
 };
 
+
 //format timeStamp
 export const formatTimestamp = (createdAt) => {
   const now = dayjs();

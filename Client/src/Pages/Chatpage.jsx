@@ -22,9 +22,9 @@ const Chatpage = () => {
   return (
     <div className="bg-[#f8f8fa] w-screen ">
       <div className="container mx-auto flex min-h-screen ">
-        <SideDrawer />
-        <Mychat />
-        <ChatBox/>
+        <SideDrawer style={{ width: "20%" }} />
+        <Mychat style={{ width: "30%" }} />
+        <ChatBox />
       </div>
     </div>
   );

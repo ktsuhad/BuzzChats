@@ -7,9 +7,11 @@ import {
 } from "@mui/icons-material";
 import React from "react";
 import { ChatState } from "../../Context/ChatProvider";
+import { useNavigate } from "react-router-dom";
 
 const SideDrawer = () => {
   const { setUser } = ChatState(); //context state
+  const navigate =useNavigate()
 
   //logout function
   const handleLogout = () => {
@@ -25,7 +27,7 @@ const SideDrawer = () => {
           <li className=" cursor-pointer rounded-full hover:translate-x-3 duration-300">
             <HomeOutlined fontSize="medium" />
           </li>
-          <li className=" cursor-pointer rounded-full hover:translate-x-3 duration-300">
+          <li className=" cursor-pointer rounded-full hover:translate-x-3 duration-300" onClick={()=>navigate("/polls")}>
             <PollOutlined fontSize="medium" />
           </li>
           <li className=" cursor-pointer rounded-full hover:translate-x-3 duration-300">

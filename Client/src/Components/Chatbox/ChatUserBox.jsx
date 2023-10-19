@@ -2,9 +2,12 @@ import { MoreVertTwoTone } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 import React from "react";
 
-const ChatuserBox = ({ selectedChat, sender }) => {
+const ChatuserBox = ({ selectedChat, sender, setShowProfile, showProfile }) => {
   return (
-    <div className="border-b-2 flex items-center justify-between py-3">
+    <div
+      className=" border-b-2 flex items-center justify-between py-3"
+      onClick={() => setShowProfile(!showProfile)}
+    >
       <div className="flex items-center gap-3 ">
         <Avatar src={!selectedChat.isGroupChat ? sender.image : ""} />
         <div className="flex flex-col ">

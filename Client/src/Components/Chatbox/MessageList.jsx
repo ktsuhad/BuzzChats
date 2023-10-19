@@ -30,7 +30,7 @@ const MessageList = ({Messages ,User}) => {
                 }`}
               >
                 <span className="text-sm font-medium">
-                  {message.sender.name}
+                  {message.sender._id !== User._id ? message.sender.name :"You"}
                 </span>
                 <span className="text-sm text-[#adacbd]">8.00 PM</span>
               </div>

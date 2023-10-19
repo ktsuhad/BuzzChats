@@ -4,10 +4,12 @@ import { ChatState } from "../Context/ChatProvider";
 import { toast } from "react-toastify";
 import chatApi from "../Services/chatApi";
 import ChatListItem from "./Chatlist/ChatListItem";
+import { getSender } from "../config/chatLogic";
 
 const Mychat = () => {
-  const [Query, setQuery] = useState();
-  const { User, selectedChat, setselectedChat, Chats, setChats } = ChatState(); //context state
+  const [Query, setQuery] = useState("");
+  const { User, selectedChat, notification, setselectedChat, Chats, setChats } =
+    ChatState(); //context state
   const [loggedUser, setLoggedUser] = useState();
 
   useEffect(() => {
@@ -26,10 +28,19 @@ const Mychat = () => {
     };
 
     fetchData();
-  }, [User, setChats]);
+  }, []);
+
+  console.log(selectedChat, "sele");
+  console.log(Chats, "jjj");
+
+  const filteredChats = Chats.filter((chat) =>
+    chat.isGroupChat
+      ? chat.chatName.toLowerCase().includes(Query.toLowerCase())
+      : getSender(User, chat.users).name.toLowerCase().includes(Query.toLowerCase())
+  );
 
   return (
-    <div className="flex-1 border-r p-5">
+    <div className=" border-r p-5">
       <div className="flex items-center justify-between py-5">
         <span className="text-xl font-bold">Messages</span>
         <Chat /> {/* chat icon */}
@@ -44,18 +55,20 @@ const Mychat = () => {
         />
         <Search /> {/* search icon */}
       </div>
-      <div className="overflow-y-scroll">
-        {Chats
-          ? Chats.map((chat) => (
-              <ChatListItem
-                key={chat._id}
-                chat={chat}
-                onclick={() => setselectedChat(chat)}
-                loggedUser={loggedUser}
-                selectedChat={selectedChat}
-              />
-            ))
-          : "No chats"}
+      <div className="">
+        {filteredChats.length > 0 ? (
+          filteredChats.map((chat) => (
+            <ChatListItem
+              key={chat._id}
+              chat={chat}
+              loggedUser={loggedUser}
+              selectedChat={selectedChat}
+              setselectedChat={setselectedChat}
+            />
+          ))
+        ) : (
+          <div>No matching chats found.</div>
+        )}
       </div>
     </div>
   );
