@@ -5,7 +5,6 @@ import { ChatState } from "../../Context/ChatProvider";
 
 const ChatListItem = ({ chat, selectedChat, setselectedChat, loggedUser }) => {
   const { notification, setNotification } = ChatState();
- 
 
   const sender = getSender(loggedUser, chat.users);
 
@@ -14,14 +13,12 @@ const ChatListItem = ({ chat, selectedChat, setselectedChat, loggedUser }) => {
   );
 
   //handleChat
-
   const handleChat = () => {
     setselectedChat(chat);
     setNotification((prevNotifications) =>
       prevNotifications.filter((item) => item.chat._id !== chat._id)
     );
   };
-
 
   return (
     <div
@@ -40,12 +37,14 @@ const ChatListItem = ({ chat, selectedChat, setselectedChat, loggedUser }) => {
           <span className="text-base">
             {!chat.isGroupChat ? sender.name : chat.chatName}
           </span>
-          <p className="text-gray-400 text-sm">{chat.latestMessage.content}</p>
+          <p className="text-gray-400 text-sm">
+            {chat.latestMessage ? chat.latestMessage.content : ""}
+          </p>
         </div>
       </div>
       <div className="text-right flex flex-col">
         <span className="text-gray-400 text-sm">
-          {formatTimestamp(chat.latestMessage.createdAt)}
+          {formatTimestamp(chat.latestMessage? chat.latestMessage.createdAt :"")}
         </span>
         <span className="text-sm font-normal mr-2">
           <Badge
