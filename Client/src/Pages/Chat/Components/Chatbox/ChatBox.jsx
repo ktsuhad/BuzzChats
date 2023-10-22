@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, Badge } from "@mui/material";
 import {
-  CalendarMonthOutlined,
   KeyboardArrowDownOutlined,
   NotificationsNoneOutlined,
 } from "@mui/icons-material";
 import Lottie from "react-lottie";
-import { ChatState } from "../../Context/ChatProvider";
-import { getSender } from "../../config/chatLogic";
-import messageApi from "../../Services/messageApi";
+import { ChatState } from "../../../../Context/ChatProvider";
+import messageApi from "../../../../Services/messageApi";
 import { toast } from "react-toastify";
 import MessageList from "./MessageList";
 import MessageInput from "./MessageInput";
 import ChatuserBox from "./ChatUserBox";
-import animationData from "../../Animations/typing.json";
+import animationData from "../../../../Animations/typing.json";
 import io from "socket.io-client"; //socket io client
-import UserProfile from "../Userprofile/UserProfile";
+import UserProfile from "../../../../Components/Userprofile/UserProfile";
+import { getSender } from "../../../../Utils/functions";
 
 const ENDPOINT = "http://localhost:5000/";
 var socket, selectedChatCompare;
@@ -158,7 +157,7 @@ const ChatBox = () => {
           <div className="relative">
             <Badge color="secondary" badgeContent={notification.length}>
               <NotificationsNoneOutlined
-              className="cursor-pointer"
+                className="cursor-pointer"
                 onClick={() => setShowNotificationPanel(!showNotificationPanel)}
               />
             </Badge>
@@ -208,7 +207,12 @@ const ChatBox = () => {
         {selectedChat ? (
           <div className="bg-[#ffff] flex-grow overflow-y-auto p-5 relative">
             {/* user profile and active nav */}
-            <ChatuserBox selectedChat={selectedChat} sender={sender} setShowProfile={setShowProfile} showProfile={showProfile}/>
+            <ChatuserBox
+              selectedChat={selectedChat}
+              sender={sender}
+              setShowProfile={setShowProfile}
+              showProfile={showProfile}
+            />
 
             {/* //message list component */}
             <MessageList Messages={messages} User={User} />
@@ -239,7 +243,7 @@ const ChatBox = () => {
           />
         )}
       </div>
-      {showProfile && <UserProfile setShowProfile={setShowProfile}/>}
+      {showProfile && <UserProfile setShowProfile={setShowProfile} />}
     </div>
   );
 };

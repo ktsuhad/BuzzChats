@@ -1,7 +1,8 @@
 import React from "react";
-import { formatTimestamp, getSender } from "../../config/chatLogic";
 import { Avatar, Badge } from "@mui/material";
-import { ChatState } from "../../Context/ChatProvider";
+import { ChatState } from "../../../../Context/ChatProvider";
+import { getSender } from "../../../../Utils/functions";
+import { formatTimestamp } from "../../../../Utils/date";
 
 const ChatListItem = ({ chat, selectedChat, setselectedChat, loggedUser }) => {
   const { notification, setNotification } = ChatState();
@@ -38,13 +39,15 @@ const ChatListItem = ({ chat, selectedChat, setselectedChat, loggedUser }) => {
             {!chat.isGroupChat ? sender.name : chat.chatName}
           </span>
           <p className="text-gray-400 text-sm">
-            {chat.latestMessage ? chat.latestMessage.content : ""}
+            {chat.latestMessage ? chat.latestMessage.content : ''}
           </p>
         </div>
       </div>
       <div className="text-right flex flex-col">
         <span className="text-gray-400 text-sm">
-          {formatTimestamp(chat.latestMessage? chat.latestMessage.createdAt :"")}
+          {formatTimestamp(
+            chat.latestMessage ? chat.latestMessage.createdAt : chat.createdAt
+          )}
         </span>
         <span className="text-sm font-normal mr-2">
           <Badge

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { ChatState } from "../Context/ChatProvider";
-import Mychat from "../Components/Mychat";
-import SideDrawer from "../Components/miscellaneous/SideDrawer";
+import { ChatState } from "../../Context/ChatProvider";
+import Mychat from "./Components/Mychat";
+import SideDrawer from "../../Components/miscellaneous/SideDrawer";
 import { useNavigate } from "react-router-dom";
-import ChatBox from "../Components/Chatbox/ChatBox";
+import ChatBox from "./Components//Chatbox/ChatBox";
 
 const Chatpage = () => {
   const { User } = ChatState();

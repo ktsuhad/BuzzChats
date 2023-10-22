@@ -1,7 +1,6 @@
 import { Avatar } from "@mui/material";
 import React from "react";
 import ScrollableFeed from 'react-scrollable-feed'
-import { isSameUser } from "../../config/chatLogic";
 
 const MessageList = ({Messages ,User}) => {
 

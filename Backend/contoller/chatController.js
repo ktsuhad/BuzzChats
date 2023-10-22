@@ -8,7 +8,7 @@ const accessChat = async (req, res) => {
   if (!userId) {
     return res
       .status(400)
-      .json({ messge: "user is param not send with request" });
+      .json({ message: "user is param not sent with the request" });
   }
 
   var isChat = await Chat.find({
@@ -27,7 +27,7 @@ const accessChat = async (req, res) => {
   });
 
   if (isChat.length > 0) {
-    res.send(isChat[0]);
+    return res.send(isChat[0]); // Add 'return' to ensure no further response is sent
   } else {
     var chatData = {
       chatName: "sender",
@@ -42,7 +42,7 @@ const accessChat = async (req, res) => {
       "users",
       "-password"
     );
-    res.status(200).json(FullChat);
+    return res.status(200).json(FullChat); // Add 'return' to ensure no further response is sent
   } catch (error) {
     res.status(400);
     throw new Error(error.message);
